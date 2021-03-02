@@ -51,10 +51,10 @@ function asyncHandler(cb) {
                 include: [
                     {
                       model: User,
-                      //filter out properties "createdAt" and "updatedAt"
-                      attributes: {
-                        exclude: ['createdAt','updatedAt']
-                      },
+                      //filter out properties "createdAt","updatedAt" and "password"
+                        attributes: {
+                           exclude: ['createdAt','updatedAt','password']
+                       },
                     },
                   ],
             });
@@ -87,9 +87,9 @@ router.get('/:id', asyncHandler( async (req, res) => {
             include: [
                 {
                   model: User,
-                  //filter out properties "createdAt" and "updatedAt"
+                  //filter out properties "createdAt","updatedAt" and "password"
                   attributes: {
-                      exclude: ['createdAt','updatedAt']
+                      exclude: ['createdAt','updatedAt','password']
                   },
                 },
               ],
