@@ -9,7 +9,7 @@ const authenticateUser = require("./userauthentication");
 
 // Construct a router instance.
 const router = express.Router();
-
+//Enable All CORS Requests
 
 /*----------------------------------------------------------------
                 Route-Handler (asyncHandler)
@@ -202,6 +202,8 @@ router.put('/:id', inputValidator, authenticateUser, asyncHandler( async (req, r
                     //updating "title" and "description" of the course with data of "req.body"
                     course.title = req.body.title;
                     course.description = req.body.description;
+                    course.estimatedTime = req.body.estimatedTime;
+                    course.materialsNeeded = req.body.materialsNeeded;
                     //saving the updated course to the database
                     await course.save();
                     //ending the response with a status 204
@@ -249,6 +251,8 @@ router.delete('/:id',authenticateUser, asyncHandler( async (req, res) => {
     if(course){
         //Testing if userId inside the coursedata matches the userId of  logged-in user
         if(course.userId == req.currentUser.id) {
+            console.log(course.userId );
+            console.log(req.currentUser.id);
             //deleting the course in the database 
             await course.destroy();
             //ending the response with a status 204

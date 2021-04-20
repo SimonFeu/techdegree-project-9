@@ -9,6 +9,7 @@ const bcryptjs = require('bcryptjs');
 
 // Construct a router instance.
 const router = express.Router();
+//Enable All CORS Requests
 
 
 
@@ -56,7 +57,8 @@ function asyncHandler(cb) {
     res.status(200).json({
       firstName: user.firstName,
       lastName: user.lastName,
-      emailAddress: user.emailAddress
+      emailAddress: user.emailAddress,
+      id: user.id
     });
     }
 ));
@@ -131,7 +133,7 @@ const inputValidator = [
 
         if(userIsExisting) {
             //if user already exists a status code 400 is send to the client, with 
-            res.status(400).json({ message: "Email must be unique. This email already exists." });
+            res.status(400).json({ errors: ["Email must be unique. This email already exists."] });
         } else {
             // Hash the new user's password.
             user.password = bcryptjs.hashSync(user.password);
