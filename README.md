@@ -49,7 +49,7 @@ Users:
 
 ## Example of the User routes
 
-## Route-Handler (asyncHandler)
+### Route-Handler (asyncHandler)
 To make the try-catch-block easier to use and not to have to repeat it all the time we use the middlewar "asyncHandler"
 
 ```javascript
@@ -65,7 +65,7 @@ function asyncHandler(cb) {
   }
 ```
 
-## GET-Route
+### GET-Route
     *  This route returns the current authenticated user.
     * it uses the middleware "authenticateUser" to get the current authenticated user
   
@@ -91,7 +91,7 @@ function asyncHandler(cb) {
 ));
 ```
   
-## Input Validation
+### Input Validation
 The function "inputValidator" validates the input for "firstName","lastName","emailAddress","password" .
 It is used in the post-route to validate the Input before it is send to the database.
 
@@ -114,7 +114,7 @@ const inputValidator = [
   ];
   ```
 
-## POST - route
+### POST - route
     *  This route creates a new user
     *  First the input data is validated
     *  Then we check if the user is unique or already exists
