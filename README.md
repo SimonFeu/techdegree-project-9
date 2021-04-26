@@ -66,8 +66,8 @@ function asyncHandler(cb) {
 ```
 
 ### GET-Route
-    *  This route returns the current authenticated user.
-    * it uses the middleware "authenticateUser" to get the current authenticated user
+* This route returns the current authenticated user.
+* It uses the middleware "authenticateUser" to get the current authenticated user.
   
 ```javascript
   router.get('/', authenticateUser, asyncHandler( async (req, res) => {
@@ -115,10 +115,10 @@ const inputValidator = [
   ```
 
 ### POST - route
-    *  This route creates a new user
-    *  First the input data is validated
-    *  Then we check if the user is unique or already exists
-    *  If user doesn't exist the password is hashed and the user is created
+* This route creates a new user
+* First the input data is validated
+* Then we check if the user is unique or already exists
+* If user doesn't exist the password is hashed and the user is created
 
  ```javascript
     router.post('/', inputValidator, asyncHandler( async (req, res) => {
