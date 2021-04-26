@@ -48,28 +48,11 @@ Users:
 | DELETE | http://localhost:5000/api/courses/:id  |Deleting a specific course|
 
 ## Example of the User routes
-```'use strict';
 
-const express = require('express');
-const User = require('../models').User;
-const { check, validationResult } = require('express-validator');
-const authenticateUser = require("./userauthentication");
-const bcryptjs = require('bcryptjs');
+## Route-Handler (asyncHandler)
+To make the try-catch-block easier to use and not to have to repeat it all the time we use the middlewar "asyncHandler"
 
-
-// Construct a router instance.
-const router = express.Router();
-
-
-
-/*----------------------------------------------------------------
-                Route-Handler (asyncHandler)
- -----------------------------------------------------------------
-    * To make the try-catch-block easier to use 
-      and not to have to repeat it all the time we 
-      use the middlewar "asyncHandler"
- ----------------------------------------------------------------*/
-// Handler function to wrap each route.
+```javascript
 function asyncHandler(cb) {
     return async (req, res, next) => {
       try {
@@ -80,17 +63,13 @@ function asyncHandler(cb) {
       }
     }
   }
+```
 
-
-
-  
-
- /*----------------------------------------------------------------
-                                GET-Route
- -----------------------------------------------------------------
+## GET-Route
     *  This route returns the current authenticated user.
     * it uses the middleware "authenticateUser" to get the current authenticated user
- ----------------------------------------------------------------*/
+  
+```javascript
   router.get('/', authenticateUser, asyncHandler( async (req, res) => {
     /*
         The middleware "authenticateUser" stores the "currentUser"
@@ -110,20 +89,13 @@ function asyncHandler(cb) {
     });
     }
 ));
-
+```
   
+## Input Validation
+The function "inputValidator" validates the input for "firstName","lastName","emailAddress","password" .
+It is used in the post-route to validate the Input before it is send to the database.
 
-
-
-/*----------------------------------------------------------------
-                        Input Validation
- -----------------------------------------------------------------
-    The function "inputValidator" validates the input for 
-    "firstName","lastName","emailAddress","password"
-    It is used in the post-route to validate the Input 
-    before it is send to the database 
- ----------------------------------------------------------------*/
-//Validation for the post route
+```javascript
 const inputValidator = [
     check('firstName')
       .exists({ checkNull: true, checkFalsy: true })
@@ -140,21 +112,15 @@ const inputValidator = [
       .isLength({ min: 8, max: 20 })
       .withMessage('Password length must be between 8 and 20 characters'),
   ];
-  
+  ```
 
-
-
-
-
-
- /*----------------------------------------------------------------
-                            POST - route
- -----------------------------------------------------------------
+## POST - route
     *  This route creates a new user
     *  First the input data is validated
     *  Then we check if the user is unique or already exists
     *  If user doesn't exist the password is hashed and the user is created
- ----------------------------------------------------------------*/
+
+ ```javascript
     router.post('/', inputValidator, asyncHandler( async (req, res) => {
 		 //Storing the "validationResult" in variable "errors"
          const errors = validationResult(req);
@@ -194,6 +160,4 @@ const inputValidator = [
 		
 	}
 ));
-
-
-module.exports = router;
+```
